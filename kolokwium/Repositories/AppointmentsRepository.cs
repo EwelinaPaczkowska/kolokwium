@@ -54,7 +54,7 @@ public class AppoinmentsRepository: IAppoinmentsRepository
                         appointment.doctor = new DoctorDTO()
                         {
                             doctor_id = reader.GetInt32(reader.GetOrdinal("doctor_id")),
-                            PWZ = reader.GetString(reader.GetOrdinal("licence_number")),
+                            PWZ = reader.GetString(reader.GetOrdinal("PWZ")),
                         };
                         var service = new ServiceDTO()
                         {
