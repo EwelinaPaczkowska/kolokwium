@@ -1,5 +1,6 @@
 ﻿using kolokwium.DTOs;
 using kolokwium.Exceptions;
+using kolokwium.Models;
 using kolokwium.Repositories;
 
 namespace kolokwium.Services;
@@ -19,5 +20,4 @@ public class AppointmentsService : IAppointmentsService
         
         return await _deliveriesRepository.GetAppointmentById(id, cancellationToken);
     }
-
 }

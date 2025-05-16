@@ -70,4 +70,84 @@ public class AppoinmentsRepository: IAppoinmentsRepository
 
         return appointment;
     }
+    public async Task<bool> DoesAppointmentExistAsync(int id, CancellationToken cancellationToken)
+    {
+        await using (var connection = new SqlConnection(_connectionString))
+        {
+
+            await connection.OpenAsync(cancellationToken);
+
+            var query = @"SELECT COUNT(1) FROM [dbo].[Appointment] WHERE appointment_id = @appointment_id";
+
+            await using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@delivery_id", id);
+
+                var result = await command.ExecuteScalarAsync(cancellationToken);
+
+                return Convert.ToInt32(result) > 0;
+            }
+        }
+    }
+
+
+    public async Task<bool> DoesPatientExistAsync(int id, CancellationToken cancellationToken)
+    {
+        await using (var connection = new SqlConnection(_connectionString))
+        {
+
+            await connection.OpenAsync(cancellationToken);
+
+            var query = @"SELECT COUNT(1) FROM [dbo].[Patient] WHERE patient_id = @patient_id";
+
+            await using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@customer_id", id);
+
+                var result = await command.ExecuteScalarAsync(cancellationToken);
+
+                return Convert.ToInt32(result) > 0;
+            }
+        }
+    }
+
+    public async Task<bool> DoesDoctorExistAsync(int id, CancellationToken cancellationToken)
+    {
+        await using (var connection = new SqlConnection(_connectionString))
+        {
+
+            await connection.OpenAsync(cancellationToken);
+
+            var query = @"SELECT COUNT(1) FROM [dbo].[Doctor] WHERE doctor_id = @doctor_id";
+
+            await using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@driver_id", id);
+
+                var result = await command.ExecuteScalarAsync(cancellationToken);
+
+                return Convert.ToInt32(result) > 0;
+            }
+        }
+    }
+
+    public async Task<bool> DoesServiceNameExistAsync(String name, CancellationToken cancellationToken)
+    {
+        await using (var connection = new SqlConnection(_connectionString))
+        {
+
+            await connection.OpenAsync(cancellationToken);
+
+            var query = @"SELECT COUNT(1) FROM [dbo].[Service] WHERE name = @name";
+
+            await using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@name", name);
+
+                var result = await command.ExecuteScalarAsync(cancellationToken);
+
+                return Convert.ToInt32(result) > 0;
+            }
+        }
+    }
 }

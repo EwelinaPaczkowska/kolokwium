@@ -1,4 +1,5 @@
 using kolokwium.Repositories;
+using kolokwium.Services;
 using webApiC.Middlewares;
 
 namespace kolokwium;
@@ -14,7 +15,7 @@ public class Program
         builder.Services.AddSwaggerGen();
         
         builder.Services.AddScoped<IAppoinmentsRepository, AppoinmentsRepository>();
-        //builder.Services.AddScoped<IDeliveriesService, DeliveriesService>();
+        builder.Services.AddScoped<IAppointmentsService, AppointmentsService>();
 
         var app = builder.Build();
         
